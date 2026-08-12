@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syed Hammad — Graphic Designer & 3D Artist</title>
+<meta name="description" content="Portfolio of Syed Hammad — graphic designer and 3D artist specializing in retail display visualization, product renders and CGI ads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08090D;
+    --bg-2:#0C0E14;
+    --panel:#12141C;
+    --panel-2:#181B25;
+    --line:#242835;
+    --text:#F5F4F8;
+    --muted:#8D93A6;
+    --muted-2:#585F70;
+    --violet:#D4AF37;
+    --cyan:#1F6F5C;
+    --violet-soft: rgba(212,175,55,0.10);
+    --cyan-soft: rgba(31,111,92,0.10);
+    --radius: 16px;
+    --maxw: 1220px;
+  }
+  [data-theme="light"]{
+    --bg:#F7F5F1; --bg-2:#FFFFFF; --panel:#FFFFFF; --panel-2:#F1EEE7;
+    --line:#E2DED4; --text:#15161B; --muted:#5B6270; --muted-2:#8A90A0;
+    --violet:#B8901F; --cyan:#155C4B;
+    --violet-soft: rgba(184,144,31,0.08); --cyan-soft: rgba(21,92,75,0.08);
+  }
+  [data-theme="light"] body::before{opacity:0.02;}
+  [data-theme="light"] nav{background:rgba(247,245,241,0.78);}
+  [data-theme="light"] .hero-glow{opacity:0.6;}
+  [data-theme="light"] .hero-glow2{opacity:0.6;}
+  [data-theme="light"] .logo-mark,[data-theme="light"] .btn-primary{color:#fff;}
+  [data-theme="light"] .card-overlay{background:linear-gradient(180deg,transparent 30%,rgba(10,10,14,0.88) 100%);}
+  .theme-toggle{
+    width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+    background:var(--panel);display:flex;align-items:center;justify-content:center;
+    font-size:16px;transition:border-color .25s,transform .3s;
+  }
+  .theme-toggle:hover{border-color:var(--cyan);transform:rotate(20deg);}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:'Manrope',sans-serif;font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    cursor:none;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a,button{cursor:none;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:2;}
+  ::selection{background:var(--violet);color:#fff;}
+
+  /* film grain overlay */
+  body::before{
+    content:'';position:fixed;inset:0;z-index:500;pointer-events:none;opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- CUSTOM CURSOR ---------- */
+  .cursor-dot{
+    position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;
+    background:var(--cyan);pointer-events:none;z-index:9999;
+    transform:translate(-50%,-50%);transition:opacity .2s;
+  }
+  .cursor-ring{
+    position:fixed;top:0;left:0;width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--violet);pointer-events:none;z-index:9998;
+    transform:translate(-50%,-50%);
+    transition:width .25s,height .25s,border-color .25s,background .25s,opacity .2s;
+  }
+  .cursor-ring::before{
+    content:'';position:absolute;inset:-9px;border:1px dashed rgba(212,175,55,0.4);
+    border-radius:50%;animation:cursor-spin 4s linear infinite;
+  }
+  .cursor-ring.hovered{
+    width:74px;height:74px;background:rgba(31,111,92,0.08);border-color:var(--cyan);
+  }
+  .cursor-ring.hovered .cursor-label{opacity:1;}
+  .cursor-label{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.06em;
+    color:var(--cyan);opacity:0;transition:opacity .2s;text-transform:uppercase;
+  }
+  @keyframes cursor-spin{to{transform:rotate(360deg);}}
+  @media (pointer:coarse){
+    .cursor-dot,.cursor-ring{display:none;}
+    body,a,button{cursor:auto;}
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;
+    text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:16px;
+    background:linear-gradient(90deg,var(--violet),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .eyebrow::before{content:'';width:22px;height:1px;background:var(--violet);display:inline-block;}
+
+  .accent-text{
+    background:linear-gradient(90deg,var(--violet),var(--cyan),var(--violet));
+    background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:shine 5s linear infinite;
+  }
+  @keyframes shine{to{background-position:200% center;}}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+
+  /* ---------- NAV ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,9,13,0.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:var(--maxw);margin:0 auto;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:14px;}
+  .logo-mark{
+    width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-weight:600;font-size:13px;background:linear-gradient(135deg,var(--violet),var(--cyan));color:#08090D;
+  }
+  .nav-links{display:flex;gap:34px;align-items:center;}
+  .nav-links a{font-size:14px;color:var(--muted);transition:color .2s;position:relative;}
+  .nav-links a:not(.nav-cta):hover{color:var(--text);}
+  .nav-cta{
+    border:1px solid var(--violet);padding:10px 20px;border-radius:999px;font-size:13.5px;
+    background:var(--violet-soft);
+  }
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:180px 0 120px;overflow:hidden;min-height:92vh;display:flex;align-items:center;}
+  .grid-floor{
+    position:absolute;left:-10%;right:-10%;bottom:0;height:55%;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:52px 52px;
+    transform:perspective(480px) rotateX(64deg);transform-origin:bottom;
+    mask-image:linear-gradient(to top,black 5%,transparent 85%);
+    -webkit-mask-image:linear-gradient(to top,black 5%,transparent 85%);
+    opacity:0.55;animation:grid-move 12s linear infinite;
+  }
+  @keyframes grid-move{from{background-position:0 0;}to{background-position:0 52px;}}
+  .hero-glow{
+    position:absolute;top:-10%;right:-5%;width:640px;height:640px;border-radius:50%;
+    background:radial-gradient(circle,rgba(212,175,55,0.16) 0%,transparent 70%);pointer-events:none;
+  }
+  .hero-glow2{
+    position:absolute;bottom:0;left:-10%;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(31,111,92,0.10) 0%,transparent 70%);pointer-events:none;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:60px;align-items:center;}
+  .hero h1{font-size:clamp(36px,4.8vw,60px);font-weight:700;line-height:1.06;margin-bottom:24px;}
+  .hero p.lead{color:var(--muted);font-size:17px;max-width:520px;margin-bottom:38px;}
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    padding:14px 28px;border-radius:999px;font-size:14.5px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;border:1px solid transparent;
+    font-family:'Manrope',sans-serif;transition:box-shadow .3s;will-change:transform;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#08090D;}
+  .btn-primary:hover{box-shadow:0 0 32px rgba(212,175,55,0.4);}
+  .btn-ghost{border-color:var(--line);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--cyan);}
+
+  .tilt-card{perspective:900px;}
+  .stage{
+    position:relative;aspect-ratio:1/1;max-width:400px;margin:0 auto;
+    display:flex;align-items:center;justify-content:center;
+    transform-style:preserve-3d;transition:transform .1s ease-out;
+  }
+  .stage-floor{
+    position:absolute;width:100%;height:100%;border-radius:50%;
+    background:radial-gradient(circle at 50% 40%,rgba(212,175,55,0.18) 0%,rgba(31,111,92,0.05) 55%,transparent 72%);
+  }
+  .stage-ring{
+    position:absolute;width:94%;height:94%;border-radius:50%;
+    border:1px dashed rgba(212,175,55,0.5);
+  }
+  .stage-ring2{
+    position:absolute;width:82%;height:82%;border-radius:50%;
+    border:1px dashed rgba(31,111,92,0.35);
+  }
+  .stage-ring::before{
+    content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+    width:8px;height:8px;border-radius:50%;background:var(--violet);box-shadow:0 0 14px 3px var(--violet);
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .stage-photo{
+    position:relative;width:74%;height:74%;border-radius:50%;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 30px 70px -20px rgba(0,0,0,0.8);
+  }
+  .stage-photo img{width:100%;height:100%;object-fit:cover;}
+  .stage-tag{
+    position:absolute;bottom:5%;right:0%;background:var(--panel);border:1px solid var(--line);
+    padding:9px 15px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--muted);display:flex;align-items:center;gap:7px;
+  }
+  .stage-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+
+  /* ---------- BIG MARQUEE BAND ---------- */
+  .big-band{
+    padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;white-space:nowrap;background:var(--panel);
+  }
+  .big-band-track{display:flex;flex-wrap:wrap;justify-content:center;gap:44px;width:100%;}
+  .big-band span{
+    font-family:'Fraunces',serif;font-weight:800;font-size:clamp(28px,4.4vw,54px);
+    color:transparent;-webkit-text-stroke:1px var(--line);letter-spacing:-0.01em;
+  }
+  .big-band span.filled{
+    -webkit-text-stroke:0;background:linear-gradient(90deg,var(--violet),var(--cyan));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  section{padding:100px 0;border-top:1px solid var(--line);position:relative;}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;gap:24px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(28px,3.2vw,40px);font-weight:700;}
+  .section-sub{color:var(--muted);max-width:440px;font-size:15px;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .skills-col{border:1px solid var(--line);border-radius:16px;padding:30px;background:var(--panel);}
+  .skills-col h3{font-size:18px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  .skills-col h3::before{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));}
+  .skills-tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .skill-tag{
+    padding:9px 16px;border:1px solid var(--line);border-radius:999px;font-size:13.5px;
+    color:var(--muted);transition:border-color .25s,color .25s;
+  }
+  .skill-tag:hover{border-color:var(--violet);color:var(--text);}
+  @media (max-width:700px){.skills-grid{grid-template-columns:1fr;}}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:0.7fr 1.3fr;gap:60px;align-items:center;}
+  .about-text p{color:var(--muted);font-size:16px;max-width:560px;margin-bottom:32px;}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .stat-card{
+    border:1px solid var(--line);border-radius:14px;padding:22px 20px;background:var(--panel);
+    transition:border-color .3s,transform .3s;
+  }
+  .stat-card:hover{border-color:var(--violet);transform:translateY(-4px);}
+  .stat-num{
+    font-family:'Fraunces',serif;font-weight:800;font-size:clamp(24px,2.6vw,34px);
+    background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;
+    background-clip:text;color:transparent;margin-bottom:6px;
+  }
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+
+  /* ---------- EXPERIENCE ---------- */
+  .experience-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .exp-col h3{font-size:19px;font-weight:700;margin-bottom:26px;display:flex;align-items:center;gap:10px;}
+  .exp-col h3::before{content:'';width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));}
+  .exp-item{display:flex;gap:16px;padding-bottom:28px;margin-bottom:28px;border-bottom:1px solid var(--line);}
+  .exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .exp-dot{
+    flex-shrink:0;width:12px;height:12px;border-radius:50%;margin-top:5px;
+    background:var(--bg);border:2px solid var(--violet);
+  }
+  .exp-title{font-family:'Fraunces',serif;font-weight:700;font-size:16px;margin-bottom:5px;}
+  .exp-meta{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--cyan);margin-bottom:8px;}
+  .exp-desc{color:var(--muted);font-size:14.5px;}
+
+  /* ---------- OFFER ---------- */
+  .offer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .offer-card{
+    border:1px solid var(--line);border-radius:16px;padding:28px 24px;background:var(--panel);
+    transition:border-color .3s,transform .3s;
+  }
+  .offer-card:hover{border-color:var(--cyan);transform:translateY(-5px);}
+  .offer-num{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--muted-2);margin-bottom:16px;
+  }
+  .offer-title{font-family:'Fraunces',serif;font-weight:700;font-size:18px;margin-bottom:10px;}
+  .offer-desc{color:var(--muted);font-size:14.5px;}
+
+  @media (max-width:900px){
+    .about-grid{grid-template-columns:1fr;}
+    .stats-row{grid-template-columns:1fr;}
+    .experience-grid{grid-template-columns:1fr;}
+    .offer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .offer-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- MARQUEE (toolset) ---------- */
+  .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);}
+  .marquee-track{display:flex;width:max-content;gap:16px;animation:marquee 26s linear infinite;}
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .chip{
+    display:flex;align-items:center;gap:11px;padding:16px 26px;border:1px solid var(--line);
+    border-radius:12px;background:var(--panel);font-family:'IBM Plex Mono',monospace;font-size:14.5px;
+    white-space:nowrap;transition:border-color .25s,transform .25s;
+  }
+  .chip:hover{border-color:var(--cyan);transform:translateY(-3px);}
+  .chip .dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--cyan));flex-shrink:0;}
+
+  /* ---------- WORK / FILTERS ---------- */
+  .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;position:relative;}
+  .filter-btn{
+    padding:10px 20px;border-radius:999px;border:1px solid var(--line);
+    font-size:13px;color:var(--muted);background:transparent;font-family:'Manrope',sans-serif;
+    transition:all .25s;position:relative;
+  }
+  .filter-btn.active{border-color:var(--violet);color:var(--text);background:var(--violet-soft);}
+  .filter-btn:hover{border-color:var(--cyan);}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;grid-auto-flow:dense;}
+  .card:nth-child(6n+1){grid-column:span 2;aspect-ratio:16/9;}
+  .card:nth-child(9n+5){grid-row:span 2;aspect-ratio:3/5;}
+  .card{
+    position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
+    background:var(--panel);aspect-ratio:4/3;transform-style:preserve-3d;will-change:transform;
+    transition:transform .12s ease-out,border-color .3s;
+  }
+  .card:hover{border-color:var(--violet);}
+  .card img,.card video{width:100%;height:100%;object-fit:cover;transform:translateZ(0) scale(1.0);transition:transform .5s;}
+  .card:hover img,.card:hover video{transform:scale(1.08);}
+  .card-overlay{
+    position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(8,9,13,0.94) 100%);
+    display:flex;flex-direction:column;justify-content:flex-end;padding:18px;
+  }
+  .card-cat{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--cyan);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+  .card-title{font-family:'Fraunces',serif;font-size:16.5px;font-weight:700;}
+  .card-play{
+    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+    background:rgba(8,9,13,0.75);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+    color:var(--cyan);font-size:13px;
+  }
+  .hidden{display:none !important;}
+
+  /* ---------- REVIEWS MARQUEE ---------- */
+  .reviews-marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,black 6%,black 94%,transparent);mask-image:linear-gradient(90deg,transparent,black 6%,black 94%,transparent);}
+  .reviews-track{display:flex;width:max-content;gap:22px;animation:marquee 34s linear infinite;}
+  .reviews-marquee:hover .reviews-track{animation-play-state:paused;}
+  .review-card{
+    width:280px;flex-shrink:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;transition:transform .3s,border-color .3s;
+  }
+  .review-card:hover{transform:translateY(-6px);border-color:var(--cyan);}
+  .review-card img{width:100%;display:block;}
+  .review-label{padding:13px 17px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+  .review-label .stars{background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center;}
+  .contact-grid h2{font-size:clamp(30px,3.8vw,44px);margin-bottom:20px;}
+  .contact-list{display:flex;flex-direction:column;gap:14px;margin-top:30px;}
+  .contact-item{
+    display:flex;align-items:center;justify-content:space-between;padding:18px 22px;
+    border:1px solid var(--line);border-radius:14px;background:var(--panel);transition:border-color .3s,transform .3s;
+  }
+  .contact-item:hover{border-color:var(--violet);transform:translateX(4px);}
+  .contact-item .label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);}
+  .contact-item .value{font-size:15px;font-weight:600;}
+  .contact-note{font-size:13px;color:var(--muted-2);margin-top:20px;border-left:2px solid var(--violet);padding-left:12px;}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;display:flex;justify-content:space-between;align-items:center;color:var(--muted-2);font-size:13px;flex-wrap:wrap;gap:12px;position:relative;z-index:2;}
+
+  /* ---------- LIGHTBOX ---------- */
+  .lightbox{position:fixed;inset:0;background:rgba(4,5,8,0.94);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:200;padding:40px;}
+  .lightbox.active{display:flex;}
+  .lightbox-inner{max-width:920px;max-height:85vh;width:100%;}
+  .lightbox-inner img,.lightbox-inner video{width:100%;max-height:75vh;object-fit:contain;border-radius:12px;}
+  .lightbox-cap{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:var(--muted);font-size:13.5px;font-family:'IBM Plex Mono',monospace;}
+  .lightbox-close{position:absolute;top:26px;right:34px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:18px;}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .stage{order:-1;max-width:260px;}
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .nav-links{position:fixed;top:66px;left:0;right:0;background:var(--bg-2);border-bottom:1px solid var(--line);flex-direction:column;padding:22px 28px;gap:20px;display:none;}
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:block;}
+    body{cursor:auto;}
+    .cursor-dot,.cursor-ring{display:none;}
+  }
+  @media (max-width:560px){
+    .grid{grid-template-columns:1fr 1fr;}
+    .hero{padding-top:150px;min-height:auto;}
+    .review-card{width:230px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .stage-ring,.stage-ring2,.grid-floor,.marquee-track,.reviews-track,.accent-text,.cursor-ring::before{animation:none;}
+    *{scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"><span class="cursor-label" id="cursorLabel"></span></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo"><span class="logo-mark">SH</span> Syed Hammad</a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#work">Work</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact" class="nav-cta">Let's talk</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero" style="border-top:none;">
+  <div class="grid-floor"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal in-view">
+      <div class="eyebrow">Graphic Designer — 3D Artist</div>
+      <h1>Renders your client sign off on, <span class="accent-text">before</span> anything gets built.</h1>
+      <p class="lead">I design and visualize retail displays, product renders and CGI ads in Blender, Maya and Unreal — work delivered for clients on Fiverr and direct freelance projects.</p>
+      <div class="hero-ctas">
+        <a href="#work" class="btn btn-primary magnetic">See the work</a>
+        <a href="#contact" class="btn btn-ghost magnetic">Get in touch</a>
+      </div>
+    </div>
+    <div class="tilt-card">
+      <div class="stage" id="stage">
+        <div class="stage-floor"></div>
+        <div class="stage-ring2"></div>
+        <div class="stage-ring"></div>
+        <div class="stage-photo">
+          <img src="assets/images/profile.jpg" alt="Syed Hammad">
+        </div>
+        <div class="stage-tag"><span class="dot"></span>Open to work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="big-band">
+  <div class="big-band-track" id="bigBandTrack"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="tilt-card">
+      <div class="stage" id="stage3" style="max-width:320px;">
+        <div class="stage-floor"></div>
+        <div class="stage-ring2"></div>
+        <div class="stage-ring"></div>
+        <div class="stage-photo">
+          <img src="assets/images/profile.jpg" alt="Syed Hammad">
+        </div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow">About Me</div>
+      <h2 style="margin-bottom:20px;font-size:clamp(26px,3vw,36px);">Graphic Designer & 3D Artist</h2>
+      <p>I'm Syed Hammad — a graphic designer and 3D artist working across Blender, Maya, Unreal Engine and Substance Painter to bring retail displays, product renders and CGI ads to life before they're ever built. Alongside freelance client work, I also train and mentor students in gaming, animation and design.</p>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-num">2+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-card"><div class="stat-num">100+</div><div class="stat-label">Completed Projects</div></div>
+        <div class="stat-card"><div class="stat-num">24/7</div><div class="stat-label">Client Support</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLSET -->
+<section id="toolset">
+  <div class="wrap reveal">
+    <div class="eyebrow">Toolset</div>
+    <h2 style="margin-bottom:36px;font-size:clamp(24px,2.8vw,32px);">Software I build with</h2>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Skills</div>
+        <h2>What I'm Good At</h2>
+      </div>
+      <p class="section-sub">Design fundamentals and 3D craft behind every project.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skills-col reveal">
+        <h3>Design Skills</h3>
+        <div class="skills-tags">
+          <div class="skill-tag">Typography</div>
+          <div class="skill-tag">Layout &amp; Composition</div>
+          <div class="skill-tag">Color Theory</div>
+        </div>
+      </div>
+      <div class="skills-col reveal">
+        <h3>3D Skills</h3>
+        <div class="skills-tags">
+          <div class="skill-tag">3D Modeling</div>
+          <div class="skill-tag">Texturing &amp; UV Mapping</div>
+          <div class="skill-tag">Lighting &amp; Rendering</div>
+          <div class="skill-tag">Environment Artist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Career</div>
+        <h2>My Experience</h2>
+      </div>
+      <p class="section-sub">Freelance design work alongside teaching and mentoring in gaming, animation and design.</p>
+    </div>
+    <div class="experience-grid">
+      <div class="exp-col reveal">
+        <h3>Freelance Experience</h3>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-title">Freelance Graphic Designer & 3D Artist</div>
+            <div class="exp-meta">2 Years · Multiple Platforms</div>
+            <p class="exp-desc">Working across multiple freelance platforms including Fiverr and direct clients, delivering and finalizing numerous retail display, product visualization and CGI projects.</p>
+          </div>
+        </div>
+      </div>
+      <div class="exp-col reveal">
+        <h3>Teaching Experience</h3>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-title">Trainer — Gaming & Animation</div>
+            <div class="exp-meta">2 Months · IT Boot Camp, Govt of Sindh — Sukkur IBA University</div>
+            <p class="exp-desc">Trained participants in gaming and animation fundamentals as part of a Government of Sindh IT Boot Camp initiative.</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-title">Graphic Design Trainer</div>
+            <div class="exp-meta">2 Months · PITP, Govt of Sindh — Sukkur IBA University</div>
+            <p class="exp-desc">Delivered graphic design training under the People's Information Technology Program (PITP), a Government of Sindh initiative.</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-dot"></div>
+          <div>
+            <div class="exp-title">Game Design & Development Instructor</div>
+            <div class="exp-meta">Aror University · January 2025 — Present</div>
+            <p class="exp-desc">Teaching game design and development to students at Aror University.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I OFFER -->
+<section id="offer">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Services</div>
+        <h2>What I Offer</h2>
+      </div>
+      <p class="section-sub">3D and graphic design services for brands, agencies and creative teams.</p>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-card reveal"><div class="offer-num">01</div><div class="offer-title">Retail & POP Display Visualization</div><div class="offer-desc">Photoreal renders of retail displays and point-of-purchase units before production.</div></div>
+      <div class="offer-card reveal"><div class="offer-num">02</div><div class="offer-title">Product Rendering & Turntables</div><div class="offer-desc">Studio-quality product visuals and rotating turntable renders.</div></div>
+      <div class="offer-card reveal"><div class="offer-num">03</div><div class="offer-title">CGI Product Ads & Animation</div><div class="offer-desc">Motion-driven CGI ads and animated product showcases.</div></div>
+      <div class="offer-card reveal"><div class="offer-num">04</div><div class="offer-title">3D Modeling & Texturing</div><div class="offer-desc">Custom 3D models with PBR texturing in Blender, Maya and Substance Painter.</div></div>
+      <div class="offer-card reveal"><div class="offer-num">05</div><div class="offer-title">Trade Show & Exhibition Design</div><div class="offer-desc">Booth and exhibition stand visualization for trade shows.</div></div>
+      <div class="offer-card reveal"><div class="offer-num">06</div><div class="offer-title">Graphic Design</div><div class="offer-desc">Branding, print and digital design work in Illustrator, Photoshop and Figma.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Selected Work</div>
+        <h2>Projects</h2>
+      </div>
+      <p class="section-sub">Retail displays, product visualization and CGI work delivered for freelance clients.</p>
+    </div>
+
+    <div class="filters reveal">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="retail">Retail &amp; POP Displays</button>
+      <button class="filter-btn" data-filter="product">Product Visualization</button>
+      <button class="filter-btn" data-filter="cgi">CGI &amp; Animation</button>
+      <button class="filter-btn" data-filter="vehicle">Vehicles &amp; Characters</button>
+      <button class="filter-btn" data-filter="tradeshow">Trade Show Exhibition</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow">Client Feedback</div>
+        <h2>What clients say</h2>
+      </div>
+      <p class="section-sub">Reviews from freelance projects.</p>
+    </div>
+  </div>
+  <div class="reviews-marquee">
+    <div class="reviews-track" id="reviewsTrack"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's put your product on the stage.</h2>
+      <p class="section-sub">Available for retail display visualization, product renders and CGI ad work.</p>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="label">EMAIL</span>
+          <a class="value" href="mailto:hammadaslam.work@gamil.com">hammadaslam.work@gamil.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">LINKEDIN</span>
+          <a class="value" href="https://www.linkedin.com/in/syed-hammad-aslam-3b832b297/" target="_blank" rel="noopener">syed-hammad-aslam</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">FIVERR</span>
+          <span class="value">fiverr.com/your-username</span>
+        </div>
+        <div class="contact-item">
+          <span class="label">LOCATION</span>
+          <span class="value">Karachi, Pakistan</span>
+        </div>
+      </div>
+      <p class="contact-note">Replace the Fiverr link with your real one before publishing.</p>
+    </div>
+    <div class="tilt-card">
+      <div class="stage" id="stage2" style="max-width:300px;">
+        <div class="stage-floor"></div>
+        <div class="stage-ring2"></div>
+        <div class="stage-ring"></div>
+        <div class="stage-photo">
+          <img src="assets/images/profile.jpg" alt="Syed Hammad">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© <span id="year"></span> Syed Hammad. All work shown belongs to its respective clients.</span>
+  <span class="mono">Built with Blender · Maya · Unreal</span>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <div class="lightbox-inner" id="lightboxInner"></div>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---- custom cursor ---- */
+const cursorDot = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+const cursorLabel = document.getElementById('cursorLabel');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{
+  mx=e.clientX; my=e.clientY;
+  cursorDot.style.left=mx+'px'; cursorDot.style.top=my+'px';
+});
+function ringLoop(){
+  rx += (mx-rx)*0.18; ry += (my-ry)*0.18;
+  cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px';
+  requestAnimationFrame(ringLoop);
+}
+ringLoop();
+function bindCursorHover(el, label){
+  el.addEventListener('mouseenter', ()=>{ cursorRing.classList.add('hovered'); cursorLabel.textContent = label||''; });
+  el.addEventListener('mouseleave', ()=>{ cursorRing.classList.remove('hovered'); cursorLabel.textContent=''; });
+}
+
+/* ---- magnetic buttons ---- */
+document.querySelectorAll('.magnetic').forEach(btn=>{
+  btn.addEventListener('mousemove', e=>{
+    const r=btn.getBoundingClientRect();
+    const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
+    btn.style.transform=`translate(${x*0.3}px, ${y*0.3}px)`;
+  });
+  btn.addEventListener('mouseleave', ()=>btn.style.transform='');
+  bindCursorHover(btn,'Open');
+});
+
+/* ---- theme toggle ---- */
+const themeToggle = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+if(savedTheme === 'light'){ document.documentElement.setAttribute('data-theme','light'); themeToggle.textContent='☀️'; }
+themeToggle.addEventListener('click', ()=>{
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  if(isLight){ document.documentElement.removeAttribute('data-theme'); themeToggle.textContent='🌙'; localStorage.setItem('portfolio-theme','dark'); }
+  else{ document.documentElement.setAttribute('data-theme','light'); themeToggle.textContent='☀️'; localStorage.setItem('portfolio-theme','light'); }
+});
+
+/* ---- mobile nav ---- */
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>navLinks.classList.remove('open')));
+
+/* ---- toolset marquee ---- */
+const skills = ["Adobe Illustrator","Adobe Photoshop","Autodesk Maya","Blender","Adobe Substance Painter","Lumion","KeyShot","Unreal Engine","Figma","Team Collaboration","Client Communication"];
+const marqueeTrack = document.getElementById('marqueeTrack');
+function chipHTML(s){ return `<div class="chip"><span class="dot"></span>${s}</div>`; }
+marqueeTrack.innerHTML = skills.map(chipHTML).join('') + skills.map(chipHTML).join('');
+
+/* ---- Project data ---- */
+const projects = [
+  {title:"Café Nairobi — Coffee Display", cat:"retail", type:"image", src:"assets/images/cafe-nairobi/cafe-nairobi-cafe-nairobi-1.jpg"},
+  {title:"Gou Gou Pets — Retail Display", cat:"retail", type:"image", src:"assets/images/gou-gou-pets/gou-gou-pets-retail-7.jpg"},
+  {title:"Gou Gou Pets — Retail Display", cat:"retail", type:"image", src:"assets/images/gou-gou-pets/gou-gou-pets-retail-8.jpg"},
+  {title:"Gou Gou Pets — Retail Display", cat:"retail", type:"image", src:"assets/images/gou-gou-pets/gou-gou-pets-retail-4.jpg"},
+  {title:"Gou Gou Pets — Trade Show", cat:"tradeshow", type:"image", src:"assets/images/gou-gou-pets/gou-gou-pets-trade-1.jpg"},
+  {title:"Gou Gou Pets — Trade Show", cat:"tradeshow", type:"image", src:"assets/images/gou-gou-pets/gou-gou-pets-trade-2.jpg"},
+  {title:"Floramix — Retail Display", cat:"retail", type:"image", src:"assets/images/floramix/floramix-floramix-1.jpg"},
+  {title:"Floramix — Retail Display", cat:"retail", type:"image", src:"assets/images/floramix/floramix-floramix-2.jpg"},
+  {title:"Mons — Retail Display", cat:"retail", type:"image", src:"assets/images/mons-retail/mons-retail-mons-1.jpg"},
+  {title:"Mons — Retail Display", cat:"retail", type:"image", src:"assets/images/mons-retail/mons-retail-mons-2.jpg"},
+  {title:"Retail Display — Aquafina", cat:"retail", type:"image", src:"assets/images/retail-display/retail-display-aquafina.jpg"},
+  {title:"Retail Display — Glowiva", cat:"retail", type:"image", src:"assets/images/retail-display/retail-display-glowiva.jpg"},
+  {title:"Retail Display — Snickers", cat:"retail", type:"image", src:"assets/images/retail-display/retail-display-snakers.jpg"},
+  {title:"Retail Display", cat:"retail", type:"image", src:"assets/images/retail-display/retail-display-render.jpg"},
+  {title:"Retail Display", cat:"retail", type:"image", src:"assets/images/retail-display/retail-display-render1.jpg"},
+  {title:"Trade Show Exhibition", cat:"tradeshow", type:"image", src:"assets/images/trade-show/trade-show-trade-1.jpg"},
+  {title:"Trade Show Exhibition", cat:"tradeshow", type:"image", src:"assets/images/trade-show/trade-show-trade-2.jpg"},
+  {title:"Trade Show Exhibition", cat:"tradeshow", type:"image", src:"assets/images/trade-show/trade-show-trade-3.jpg"},
+  {title:"Trade Show Exhibition", cat:"tradeshow", type:"image", src:"assets/images/trade-show/trade-show-trade-4.jpg"},
+  {title:"Swoopet — Retail Display", cat:"retail", type:"image", src:"assets/images/swoopet/swoopet-swoopet-1.jpg"},
+  {title:"Swoopet — Retail Display", cat:"retail", type:"image", src:"assets/images/swoopet/swoopet-swoopet-2.jpg"},
+  {title:"Swoopet — Retail Display", cat:"retail", type:"image", src:"assets/images/swoopet/swoopet-swoopet-3.jpg"},
+
+  {title:"Dustbin — Product Render", cat:"product", type:"image", src:"assets/images/dustbin/dustbin-dustbin-1.jpg"},
+  {title:"Dustbin — Product Render", cat:"product", type:"image", src:"assets/images/dustbin/dustbin-dustbin-2.jpg"},
+  {title:"Bierer Meter — Visualization", cat:"product", type:"image", src:"assets/images/bierer-meters/bierer-meters-bierer-01-1.jpg"},
+  {title:"Bierer Meter — Visualization", cat:"product", type:"image", src:"assets/images/bierer-meters/bierer-meters-bierer-01-2.jpg"},
+  {title:"Bierer Meter — Visualization", cat:"product", type:"image", src:"assets/images/bierer-meters/bierer-meters-bierer-02-1.jpg"},
+  {title:"Bierer Meter — Visualization", cat:"product", type:"image", src:"assets/images/bierer-meters/bierer-meters-bierer-02-2.jpg"},
+  {title:"Bierer Meter — Turntable", cat:"product", type:"video", src:"assets/videos/bierer-01.mp4"},
+  {title:"Bierer Meter — Turntable", cat:"product", type:"video", src:"assets/videos/bierer-02.mp4"},
+  {title:"Studio Study — Car", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-car.jpg"},
+  {title:"Studio Study — Car", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-car2.jpg"},
+  {title:"Studio Study — Supra", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-supra.jpg"},
+  {title:"Studio Study — Bulb", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-bulb.jpg"},
+  {title:"Studio Study — Bulb", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-bulb2.jpg"},
+  {title:"Studio Study — Bulb", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-bulb3.jpg"},
+  {title:"Studio Study — Perfume Bottle", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-perfume.jpg"},
+  {title:"Studio Study — Interior", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-room.jpg"},
+  {title:"Studio Study — Character", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-model.jpg"},
+  {title:"Studio Study — Bird", cat:"product", type:"image", src:"assets/images/3d-models/3d-models-bird.jpg"},
+
+  {title:"CGI Product Ad", cat:"cgi", type:"video", src:"assets/videos/cgi-add-1.mp4"},
+  {title:"CGI Product Ad", cat:"cgi", type:"video", src:"assets/videos/cgi-add-2.mp4"},
+  {title:"Shopping Mall Animation", cat:"cgi", type:"video", src:"assets/videos/shopping-mall.mp4"},
+  {title:"Motion Study — Ball Physics", cat:"cgi", type:"video", src:"assets/videos/ball-animation.mp4"},
+
+  {title:"Buggy — Motion Simulator (IFX)", cat:"vehicle", type:"image", src:"assets/images/bugguy/bugguy-bugguy-1.jpg"},
+  {title:"Buggy — Motion Simulator (IFX)", cat:"vehicle", type:"image", src:"assets/images/bugguy/bugguy-bugguy-2.jpg"},
+  {title:"Buggy — Motion Simulator (IFX)", cat:"vehicle", type:"image", src:"assets/images/bugguy/bugguy-bugguy-3.jpg"},
+  {title:"Car Animation", cat:"vehicle", type:"video", src:"assets/videos/car-animation.mp4"},
+];
+
+const catLabels = {retail:"Retail & POP", product:"Product Viz", cgi:"CGI & Animation", vehicle:"Vehicle & Character", tradeshow:"Trade Show Exhibition"};
+
+const grid = document.getElementById('grid');
+function renderGrid(filter){
+  grid.innerHTML = '';
+  projects.filter(p => filter === 'all' || p.cat === filter).forEach(p=>{
+    const card = document.createElement('div');
+    card.className = 'card reveal in-view';
+    let media;
+    if(p.type === 'video'){
+      media = `<video src="${p.src}" muted loop playsinline preload="metadata"></video><div class="card-play">▶</div>`;
+    } else {
+      media = `<img src="${p.src}" alt="${p.title}" loading="lazy">`;
+    }
+    card.innerHTML = `${media}<div class="card-overlay"><div class="card-cat">${catLabels[p.cat]}</div><div class="card-title">${p.title}</div></div>`;
+    card.addEventListener('click', ()=> openLightbox(p));
+    bindCursorHover(card, 'View');
+    card.addEventListener('mousemove', e=>{
+      const r = card.getBoundingClientRect();
+      const x = e.clientX-r.left, y = e.clientY-r.top;
+      const rx = ((y-r.height/2)/r.height/2)*-14;
+      const ry = ((x-r.width/2)/r.width/2)*14;
+      card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', ()=> card.style.transform='');
+    if(p.type === 'video'){
+      card.addEventListener('mouseenter', ()=> card.querySelector('video').play());
+      card.addEventListener('mouseleave', ()=>{ const v=card.querySelector('video'); v.pause(); v.currentTime=0; });
+    }
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('.card').forEach((el,i)=>{ el.style.transitionDelay = (Math.min(i%6,6)*0.06)+'s'; });
+}
+renderGrid('all');
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid(btn.dataset.filter);
+  });
+  bindCursorHover(btn,'');
+});
+
+/* ---- reviews marquee ---- */
+const reviews = [
+  {img:"assets/reviews/cafe-nairobi-review.jpg", name:"Café Nairobi"},
+  {img:"assets/reviews/gou-gou-pets-review.jpg", name:"Gou Gou Pets"},
+  {img:"assets/reviews/mons-retail-review.jpg", name:"Mons Retail"},
+  {img:"assets/reviews/swoopet-review.jpg", name:"Swoopet"},
+];
+function reviewHTML(r){
+  return `<div class="review-card"><img src="${r.img}" alt="Client review — ${r.name}"><div class="review-label"><span>${r.name}</span><span class="stars">★★★★★</span></div></div>`;
+}
+document.getElementById('reviewsTrack').innerHTML = reviews.map(reviewHTML).join('') + reviews.map(reviewHTML).join('');
+
+/* ---- lightbox ---- */
+const lightbox = document.getElementById('lightbox');
+const lightboxInner = document.getElementById('lightboxInner');
+function openLightbox(p){
+  lightboxInner.innerHTML = '';
+  let el;
+  if(p.type === 'video'){ el = document.createElement('video'); el.src=p.src; el.controls=true; el.autoplay=true; el.loop=true; }
+  else { el = document.createElement('img'); el.src=p.src; el.alt=p.title; }
+  lightboxInner.appendChild(el);
+  const cap = document.createElement('div');
+  cap.className = 'lightbox-cap';
+  cap.innerHTML = `<span>${p.title}</span><span>${catLabels[p.cat]}</span>`;
+  lightboxInner.appendChild(cap);
+  lightbox.classList.add('active');
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e=>{ if(e.target===lightbox) closeLightbox(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLightbox(); });
+function closeLightbox(){ lightbox.classList.remove('active'); lightboxInner.querySelectorAll('video').forEach(v=>v.pause()); }
+
+/* ---- scroll reveal ---- */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in-view'); });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+/* ---- bind cursor hover to base interactive elements ---- */
+/* ---- big band ticker ---- */
+const bandWords = ["3D ARTIST","GRAPHIC DESIGNER","RETAIL DISPLAYS","PRODUCT VIZ","CGI ADS"];
+const bigBandTrack = document.getElementById('bigBandTrack');
+function bandHTML(list){
+  return list.map((w,i)=> `<span class="${i%2===0?'filled':''}">${w}</span>`).join('');
+}
+bigBandTrack.innerHTML = bandHTML(bandWords);
+
+/* ---- scroll parallax on hero ---- */
+const heroGlow = document.querySelector('.hero-glow');
+const heroGlow2 = document.querySelector('.hero-glow2');
+const gridFloor = document.querySelector('.grid-floor');
+window.addEventListener('scroll', ()=>{
+  const y = window.scrollY;
+  if(heroGlow) heroGlow.style.transform = `translateY(${y*0.25}px)`;
+  if(heroGlow2) heroGlow2.style.transform = `translateY(${y*-0.15}px)`;
+  if(gridFloor) gridFloor.style.transform = `perspective(480px) rotateX(64deg) translateY(${y*0.1}px)`;
+}, {passive:true});
+
+</script>
+</body>
+</html>
